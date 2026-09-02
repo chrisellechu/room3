@@ -116,13 +116,13 @@
   .wall-cell.target{ cursor:pointer; }
   .wall-cell.target:focus-visible{ outline:3px solid var(--purple); outline-offset:2px; }
   .wall-cell .sample-num{
-    font-weight:800; font-size:clamp(9px,1.1vw,11.5px); color:var(--ink); letter-spacing:.02em; flex-shrink:0;
+    font-weight:800; font-size:clamp(12px,1.6vw,16px); color:var(--ink); letter-spacing:.02em; flex-shrink:0;
   }
   .wall-cell .sample-img{
     width:100%; flex:1; min-height:0; object-fit:contain;
   }
   .wall-cell .fragment{
-    font-size:clamp(8px,1vw,10px); color:#8a7a9a; line-height:1.25;
+    font-size:clamp(10px,1.3vw,13px); color:#8a7a9a; line-height:1.3;
     font-style:italic; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   .wall-cell.no-slide .fragment{ color:#c3b8d1; }
@@ -164,19 +164,19 @@
 
   /* ---- secret message sidebar ---- */
   .secret-panel{
-    flex:0 0 clamp(160px,15vw,220px);
+    flex:0 0 clamp(190px,17vw,250px);
     background:#fff; border:1.5px solid var(--lavender);
-    border-radius:10px; padding:.6em .7em;
+    border-radius:10px; padding:.6em .8em;
     display:flex; flex-direction:column; overflow:hidden;
   }
   .secret-panel h3{
-    text-align:center; color:var(--purple-deep); font-size:clamp(10px,1.2vw,12.5px);
+    text-align:center; color:var(--purple-deep); font-size:clamp(11px,1.4vw,14px);
     letter-spacing:.08em; text-transform:uppercase; margin:0 0 .4em 0; flex-shrink:0;
   }
   #secret-message-lines{ flex:1; overflow-y:auto; }
   .secret-line{
-    font-size:clamp(9px,1.15vw,11.5px); color:var(--ink); line-height:1.5; text-align:center;
-    margin-bottom:.3em;
+    font-size:clamp(12px,1.5vw,15px); color:var(--ink); line-height:1.5; text-align:center;
+    margin-bottom:.35em;
   }
   .secret-line .blank{ color:#c3b8d1; }
   .secret-line .filled{ color:var(--purple-deep); font-weight:700; }
@@ -297,31 +297,40 @@
     align-items:center; justify-content:center; text-align:center; position:relative;
     padding:5vw; cursor:pointer;
   }
-  .final-inner{ position:relative; z-index:2; max-width:640px; }
-  .final-intro{ color:#fff; font-size:clamp(15px,2.2vw,20px); font-weight:600; margin-bottom:1.2em; line-height:1.5; }
+  .final-inner{ position:relative; z-index:2; max-width:760px; width:100%; }
+  .final-intro{ color:#fff; font-size:clamp(16px,2.6vw,23px); font-weight:700; margin-bottom:1em; line-height:1.5; }
   .final-virus-tag{ color:var(--lavender-pale); letter-spacing:.14em; text-transform:uppercase; font-size:clamp(11px,1.6vw,14px); font-weight:700; margin-bottom:.3em; }
   .final-virus-name{
     font-size:clamp(30px,5vw,52px); font-weight:900; color:#fff; margin:0 0 .2em 0;
     text-shadow:0 0 18px rgba(255,255,255,0.5);
   }
   .final-sample-img-wrap{
-    width:min(50vw,300px); aspect-ratio:1/1; margin:1em auto; border-radius:50%;
+    width:min(42vw,240px); aspect-ratio:1/1; margin:.8em auto; border-radius:50%;
     background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;
     box-shadow:0 0 0 6px rgba(255,255,255,0.25), 0 0 40px 12px rgba(255,255,255,0.35);
   }
   .final-sample-img-wrap img{ width:70%; height:70%; object-fit:contain; }
-  .final-sample-label{ color:#fff; font-size:clamp(18px,2.6vw,24px); font-weight:800; margin-bottom:1.4em; }
+  .final-sample-label{ color:#fff; font-size:clamp(18px,2.6vw,24px); font-weight:800; margin-bottom:1.2em; }
   .final-panel{
-    background:#fff; border-radius:14px; padding:1.4em 1.6em; color:var(--ink);
+    background:#fff; border-radius:16px; padding:1.6em 2em; color:var(--ink);
+    width:100%;
   }
-  .final-panel p{ font-size:clamp(13px,1.8vw,16px); margin:0 0 1em 0; }
+  .final-panel p{
+    font-size:clamp(18px,2.8vw,25px); font-weight:700; color:var(--purple-deep);
+    margin:0 0 .7em 0; line-height:1.4;
+  }
+  .final-panel p strong{ color:var(--purple); text-decoration:underline; text-underline-offset:.15em; }
+  .final-panel .final-sample-callout{
+    font-size:clamp(20px,3.2vw,28px); font-weight:900; color:var(--purple);
+    margin:0 0 1em 0;
+  }
   .final-doorcode-label{
-    letter-spacing:.16em; text-transform:uppercase; font-size:clamp(11px,1.5vw,13px); font-weight:700; color:var(--purple);
+    letter-spacing:.16em; text-transform:uppercase; font-size:clamp(13px,1.8vw,16px); font-weight:700; color:var(--purple);
   }
   .final-doorcode{
-    font-size:clamp(36px,6vw,58px); font-weight:900; color:var(--purple-deep); letter-spacing:.08em;
+    font-size:clamp(44px,7vw,68px); font-weight:900; color:var(--purple-deep); letter-spacing:.08em;
   }
-  .final-hint{ color:#fff; opacity:.7; font-size:clamp(11px,1.5vw,13px); margin-top:1.6em; }
+  .final-hint{ color:#fff; opacity:.75; font-size:clamp(12px,1.7vw,15px); margin-top:1.4em; }
 
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
@@ -406,7 +415,7 @@
     <div class="final-sample-img-wrap"><img id="final-sample-img" src="" alt="Sample 1849 microorganism"></div>
     <div class="final-sample-label">Sample #1849</div>
     <div class="final-panel">
-      <p>Use Sample #1849 to unlock the door to the next room.</p>
+      <p>Use <strong>Sample #1849</strong> to unlock the door to the next room.</p>
       <div class="final-doorcode-label">Door Code</div>
       <div class="final-doorcode">1849</div>
     </div>
