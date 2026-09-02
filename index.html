@@ -197,22 +197,22 @@
     display:flex; align-items:center; gap:1vw;
   }
   .tray-section h3{
-    color:var(--purple-deep); font-size:clamp(9px,1.1vw,11.5px);
+    color:var(--purple-deep); font-size:clamp(11px,1.4vw,14px);
     letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; flex-shrink:0;
     line-height:1.2;
   }
   .tray-grid{
-    display:flex; gap:.6vw; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    display:flex; gap:.8vw; overflow-x:auto; -webkit-overflow-scrolling:touch;
     padding:.3vh 2px; flex:1; min-width:0;
   }
   .tray-grid::-webkit-scrollbar{ height:5px; }
   .tray-grid::-webkit-scrollbar-thumb{ background:var(--purple-mid); border-radius:3px; }
 
   .slide-tile{
-    background:var(--purple-deep); border:2px solid var(--purple-mid); border-radius:8px;
-    padding:.3em .35em; text-align:center; position:relative; cursor:grab;
+    background:var(--purple-deep); border:2px solid var(--purple-mid); border-radius:9px;
+    padding:.35em .4em; text-align:center; position:relative; cursor:grab;
     transition:transform .15s ease, box-shadow .2s ease;
-    flex:0 0 auto; width:11vh; aspect-ratio:1/1;
+    flex:0 0 auto; width:16vh; aspect-ratio:1/1;
     display:flex; flex-direction:column;
   }
   .slide-tile:active{ cursor:grabbing; }
@@ -226,7 +226,7 @@
     position:absolute; inset:0; background:var(--purple-mid); mix-blend-mode:multiply; opacity:.55; border-radius:4px;
   }
   .slide-tile .slide-num{
-    color:var(--lavender-pale); font-size:clamp(7px,.9vw,9.5px); font-weight:800; margin-bottom:.2em; flex-shrink:0;
+    color:var(--lavender-pale); font-size:clamp(13px,1.9vw,17px); font-weight:800; margin-bottom:.25em; flex-shrink:0;
   }
   .slide-tile.selected{ box-shadow:0 0 0 3px #fff, 0 0 16px 4px rgba(255,255,255,0.5); transform:translateY(-2px); }
   .slide-tile.matched-out{ opacity:.25; pointer-events:none; filter:grayscale(1); }
@@ -294,43 +294,47 @@
   /* ================= FINAL SCREEN ================= */
   #screen-final{
     background:radial-gradient(circle at 50% 20%, var(--purple-mid), var(--purple-deep) 70%);
-    align-items:center; justify-content:center; text-align:center; position:relative;
-    padding:5vw; cursor:pointer;
+    position:relative;
+    height:100vh; height:100dvh;
+    overflow:hidden;
+    align-items:center; justify-content:center;
+    padding:2vh 4vw;
+    cursor:pointer;
   }
-  .final-inner{ position:relative; z-index:2; max-width:760px; width:100%; }
-  .final-intro{ color:#fff; font-size:clamp(16px,2.6vw,23px); font-weight:700; margin-bottom:1em; line-height:1.5; }
-  .final-virus-tag{ color:var(--lavender-pale); letter-spacing:.14em; text-transform:uppercase; font-size:clamp(11px,1.6vw,14px); font-weight:700; margin-bottom:.3em; }
+  .final-inner{
+    position:relative; z-index:2; width:100%; max-width:760px;
+    display:flex; flex-direction:column; align-items:center;
+    gap:1.1vh; text-align:center;
+  }
+  .final-intro{ color:#fff; font-size:clamp(14px,2.5vh,20px); font-weight:700; line-height:1.4; }
+  .final-virus-tag{ color:var(--lavender-pale); letter-spacing:.14em; text-transform:uppercase; font-size:clamp(10px,1.6vh,13px); font-weight:700; }
   .final-virus-name{
-    font-size:clamp(30px,5vw,52px); font-weight:900; color:#fff; margin:0 0 .2em 0;
-    text-shadow:0 0 18px rgba(255,255,255,0.5);
+    font-size:clamp(26px,5.5vh,44px); font-weight:900; color:#fff; margin:0;
+    text-shadow:0 0 18px rgba(255,255,255,0.5); line-height:1.1;
   }
   .final-sample-img-wrap{
-    width:min(42vw,240px); aspect-ratio:1/1; margin:.8em auto; border-radius:50%;
+    width:15vh; aspect-ratio:1/1; border-radius:50%;
     background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;
-    box-shadow:0 0 0 6px rgba(255,255,255,0.25), 0 0 40px 12px rgba(255,255,255,0.35);
+    box-shadow:0 0 0 5px rgba(255,255,255,0.25), 0 0 32px 10px rgba(255,255,255,0.35);
+    flex-shrink:0;
   }
   .final-sample-img-wrap img{ width:70%; height:70%; object-fit:contain; }
-  .final-sample-label{ color:#fff; font-size:clamp(18px,2.6vw,24px); font-weight:800; margin-bottom:1.2em; }
+  .final-sample-label{ color:#fff; font-size:clamp(14px,2.3vh,19px); font-weight:800; }
   .final-panel{
-    background:#fff; border-radius:16px; padding:1.6em 2em; color:var(--ink);
+    background:#fff; border-radius:14px; padding:1.4vh 2.4vw; color:var(--ink);
     width:100%;
   }
   .final-panel p{
-    font-size:clamp(18px,2.8vw,25px); font-weight:700; color:var(--purple-deep);
-    margin:0 0 .7em 0; line-height:1.4;
+    font-size:clamp(13px,2.2vh,18px); font-weight:700; color:var(--purple-deep);
+    margin:0 0 .5em 0; line-height:1.35;
   }
   .final-panel p strong{ color:var(--purple); text-decoration:underline; text-underline-offset:.15em; }
-  .final-panel .final-sample-callout{
-    font-size:clamp(20px,3.2vw,28px); font-weight:900; color:var(--purple);
-    margin:0 0 1em 0;
-  }
   .final-doorcode-label{
-    letter-spacing:.16em; text-transform:uppercase; font-size:clamp(13px,1.8vw,16px); font-weight:700; color:var(--purple);
+    letter-spacing:.16em; text-transform:uppercase; font-size:clamp(10px,1.7vh,13px); font-weight:700; color:var(--purple);
   }
   .final-doorcode{
-    font-size:clamp(44px,7vw,68px); font-weight:900; color:var(--purple-deep); letter-spacing:.08em;
+    font-size:clamp(30px,6vh,48px); font-weight:900; color:var(--purple-deep); letter-spacing:.08em;
   }
-  .final-hint{ color:#fff; opacity:.75; font-size:clamp(12px,1.7vw,15px); margin-top:1.4em; }
 
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
@@ -409,17 +413,17 @@
 <!-- ============ SCREEN 5: FINAL DISCOVERY ============ -->
 <div class="screen" id="screen-final">
   <div class="final-inner">
-    <div class="final-intro">AI searched through all the samples and found the one with the mutation!</div>
+    <div class="final-intro">AI searched through all the samples and found the one with the abnormality!</div>
     <div class="final-virus-tag">New Poxviridae Virus Discovered</div>
     <div class="final-virus-name">Fauxpox</div>
     <div class="final-sample-img-wrap"><img id="final-sample-img" src="" alt="Sample 1849 microorganism"></div>
     <div class="final-sample-label">Sample #1849</div>
     <div class="final-panel">
-      <p>Use <strong>Sample #1849</strong> to unlock the door to the next room.</p>
+      <p>Head into the next room to find which antigen from our virus will have the best immune response.</p>
+      <p>Use the sample number to unlock the door to the next room.</p>
       <div class="final-doorcode-label">Door Code</div>
       <div class="final-doorcode">1849</div>
     </div>
-    <div class="final-hint">Tap anywhere or press Esc to return</div>
   </div>
 </div>
 
