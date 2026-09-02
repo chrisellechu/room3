@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Room 3 | Use Tech — Mutation Detection Challenge</title>
+<title>Room 3 — Mutation Detection Challenge</title>
 <style>
   :root{
     --purple-deep:#4a2d7a;
@@ -62,56 +62,68 @@
   .btn-primary:disabled{ opacity:.5; cursor:not-allowed; }
 
   /* ================= WALL SCREEN ================= */
-  #screen-wall{ background:var(--lavender-pale); padding:3vw 3vw 6vw; align-items:stretch; }
-  .wall-header{ text-align:center; margin-bottom:1.4em; }
+  #screen-wall{
+    background:var(--lavender-pale);
+    height:100vh; height:100dvh;
+    overflow:hidden;
+    align-items:stretch;
+    padding:1.2vh 1.6vw;
+    gap:.8vh;
+  }
+  .wall-header{ text-align:center; flex-shrink:0; }
   .wall-header .eyebrow{
-    font-size:clamp(11px,1.6vw,14px); letter-spacing:.16em; text-transform:uppercase;
+    font-size:clamp(9px,1.3vw,12px); letter-spacing:.16em; text-transform:uppercase;
     color:var(--purple); font-weight:700;
   }
-  .wall-header h2{ margin:.2em 0; font-size:clamp(20px,3vw,30px); color:var(--purple-deep); }
+  .wall-header h2{ margin:.1em 0; font-size:clamp(16px,2.2vw,24px); color:var(--purple-deep); }
   .wall-header .instruction{
-    font-size:clamp(13px,1.8vw,17px); color:var(--ink); max-width:640px; margin:0 auto;
+    font-size:clamp(11px,1.4vw,14px); color:var(--ink); max-width:640px; margin:0 auto;
   }
   .progress-bar-wrap{
-    max-width:420px; margin:1em auto 0; text-align:center;
+    max-width:380px; margin:.4em auto 0; text-align:center;
   }
   .progress-label{
-    font-weight:700; color:var(--purple-deep); font-size:clamp(13px,1.8vw,16px); margin-bottom:.4em;
+    font-weight:700; color:var(--purple-deep); font-size:clamp(11px,1.4vw,13px); margin-bottom:.25em;
   }
   .progress-track{
-    background:#fff; border:1px solid var(--lavender); border-radius:20px; height:14px; overflow:hidden;
+    background:#fff; border:1px solid var(--lavender); border-radius:20px; height:9px; overflow:hidden;
   }
   .progress-fill{
     background:linear-gradient(90deg, var(--purple), var(--purple-mid)); height:100%; width:0%;
     transition:width .4s ease;
   }
   .status-msg{
-    text-align:center; min-height:1.6em; font-size:clamp(12px,1.6vw,15px); font-weight:700;
-    margin-top:.6em; color:var(--amber);
+    text-align:center; min-height:1.2em; font-size:clamp(10px,1.3vw,12.5px); font-weight:700;
+    margin-top:.3em; color:var(--amber);
   }
 
-  .wall-grid{
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:1.1vw;
-    max-width:1200px; margin:1.6em auto 0;
+  /* wall grid + secret panel share one fixed-height row */
+  .wall-main{
+    flex:1; min-height:0; display:flex; gap:1vw;
   }
-  @media (max-width:760px){ .wall-grid{ grid-template-columns:repeat(2,1fr); } }
+  .wall-grid-wrap{ flex:1; min-width:0; }
+  .wall-grid{
+    height:100%;
+    display:grid; grid-template-columns:repeat(4, 1fr); grid-template-rows:repeat(3, 1fr);
+    gap:.7vh .8vw;
+  }
 
   .wall-cell{
-    background:#fff; border:1.5px solid var(--lavender); border-radius:10px;
-    padding:.7em .7em .8em; position:relative; overflow:hidden;
+    background:#fff; border:1.5px solid var(--lavender); border-radius:8px;
+    padding:.35em .5em; position:relative; overflow:hidden;
     display:flex; flex-direction:column; min-height:0;
   }
   .wall-cell.target{ cursor:pointer; }
   .wall-cell.target:focus-visible{ outline:3px solid var(--purple); outline-offset:2px; }
   .wall-cell .sample-num{
-    font-weight:800; font-size:clamp(11px,1.5vw,14px); color:var(--ink); letter-spacing:.02em;
+    font-weight:800; font-size:clamp(9px,1.1vw,11.5px); color:var(--ink); letter-spacing:.02em; flex-shrink:0;
   }
   .wall-cell .sample-img{
-    width:100%; aspect-ratio: 2 / 1; object-fit:contain; margin:.3em 0;
+    width:100%; flex:1; min-height:0; object-fit:contain;
   }
   .wall-cell .fragment{
-    font-size:clamp(10px,1.3vw,12px); color:#8a7a9a; min-height:1.4em; line-height:1.3;
-    font-style:italic;
+    font-size:clamp(8px,1vw,10px); color:#8a7a9a; line-height:1.25;
+    font-style:italic; flex-shrink:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   .wall-cell.no-slide .fragment{ color:#c3b8d1; }
   .wall-cell.matched{ border-color:var(--success); box-shadow:0 0 0 3px rgba(74,157,110,0.18); }
@@ -120,7 +132,7 @@
 
   .overlay-slide{
     position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:.7em; opacity:0; pointer-events:none;
+    padding:.35em .5em; opacity:0; pointer-events:none;
   }
   .overlay-slide.show{
     opacity:1; animation:layerIn .5s ease;
@@ -130,7 +142,7 @@
     position:absolute; inset:0; background:var(--purple-mid); mix-blend-mode:multiply; opacity:.5;
   }
   .overlay-slide img{
-    position:relative; width:100%; aspect-ratio:2/1; object-fit:contain; z-index:1;
+    position:relative; width:100%; flex:1; min-height:0; object-fit:contain; z-index:1;
     filter:saturate(1.3);
   }
   .success-glow{
@@ -150,63 +162,75 @@
   }
   .wall-cell.warn{ box-shadow:0 0 0 3px rgba(201,138,46,0.5); }
 
-  /* ---- historical slide tray ---- */
-  .tray-section{ max-width:1200px; margin:2.2em auto 0; }
+  /* ---- secret message sidebar ---- */
+  .secret-panel{
+    flex:0 0 clamp(160px,15vw,220px);
+    background:#fff; border:1.5px solid var(--lavender);
+    border-radius:10px; padding:.6em .7em;
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  .secret-panel h3{
+    text-align:center; color:var(--purple-deep); font-size:clamp(10px,1.2vw,12.5px);
+    letter-spacing:.08em; text-transform:uppercase; margin:0 0 .4em 0; flex-shrink:0;
+  }
+  #secret-message-lines{ flex:1; overflow-y:auto; }
+  .secret-line{
+    font-size:clamp(9px,1.15vw,11.5px); color:var(--ink); line-height:1.5; text-align:center;
+    margin-bottom:.3em;
+  }
+  .secret-line .blank{ color:#c3b8d1; }
+  .secret-line .filled{ color:var(--purple-deep); font-weight:700; }
+
+  .reveal-banner{
+    display:none; text-align:center; margin-top:.6em; flex-shrink:0;
+  }
+  .reveal-banner.show{ display:block; }
+  .reveal-banner .headline{
+    font-size:clamp(10px,1.3vw,13px); font-weight:800; color:var(--success); margin-bottom:.5em;
+    letter-spacing:.05em; text-transform:uppercase;
+  }
+  .reveal-banner .btn-primary{ padding:.5em 1em; font-size:clamp(10px,1.3vw,13px); }
+
+  /* ---- historical slide tray: fixed-height bottom strip ---- */
+  .tray-section{
+    flex:0 0 auto;
+    display:flex; align-items:center; gap:1vw;
+  }
   .tray-section h3{
-    text-align:center; color:var(--purple-deep); font-size:clamp(14px,2vw,18px);
-    letter-spacing:.08em; text-transform:uppercase; margin-bottom:.2em;
+    color:var(--purple-deep); font-size:clamp(9px,1.1vw,11.5px);
+    letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; flex-shrink:0;
+    line-height:1.2;
   }
-  .tray-instruction{ text-align:center; color:var(--ink); font-size:clamp(12px,1.6vw,15px); margin-bottom:1em; }
   .tray-grid{
-    display:grid; grid-template-columns:repeat(9, 1fr); gap:.8vw;
+    display:flex; gap:.6vw; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    padding:.3vh 2px; flex:1; min-width:0;
   }
-  @media (max-width:900px){ .tray-grid{ grid-template-columns:repeat(3,1fr); } }
+  .tray-grid::-webkit-scrollbar{ height:5px; }
+  .tray-grid::-webkit-scrollbar-thumb{ background:var(--purple-mid); border-radius:3px; }
 
   .slide-tile{
-    background:var(--purple-deep); border:2px solid var(--purple-mid); border-radius:10px;
-    padding:.5em .4em .6em; text-align:center; position:relative; cursor:grab;
+    background:var(--purple-deep); border:2px solid var(--purple-mid); border-radius:8px;
+    padding:.3em .35em; text-align:center; position:relative; cursor:grab;
     transition:transform .15s ease, box-shadow .2s ease;
+    flex:0 0 auto; width:11vh; aspect-ratio:1/1;
+    display:flex; flex-direction:column;
   }
   .slide-tile:active{ cursor:grabbing; }
   .slide-tile:focus-visible{ outline:3px solid #fff; outline-offset:2px; }
-  .slide-tile .tint-wrap{ position:relative; }
+  .slide-tile .tint-wrap{ position:relative; flex:1; min-height:0; }
   .slide-tile img{
-    width:100%; aspect-ratio:2/1; object-fit:contain; position:relative;
+    width:100%; height:100%; object-fit:contain; position:relative;
     filter:saturate(1.2) brightness(0.95);
   }
   .slide-tile .tint{
     position:absolute; inset:0; background:var(--purple-mid); mix-blend-mode:multiply; opacity:.55; border-radius:4px;
   }
   .slide-tile .slide-num{
-    color:var(--lavender-pale); font-size:clamp(10px,1.3vw,12.5px); font-weight:800; margin-bottom:.3em;
+    color:var(--lavender-pale); font-size:clamp(7px,.9vw,9.5px); font-weight:800; margin-bottom:.2em; flex-shrink:0;
   }
   .slide-tile.selected{ box-shadow:0 0 0 3px #fff, 0 0 16px 4px rgba(255,255,255,0.5); transform:translateY(-2px); }
   .slide-tile.matched-out{ opacity:.25; pointer-events:none; filter:grayscale(1); }
   .slide-tile.dragging{ opacity:.4; }
-
-  /* ================= SECRET MESSAGE ================= */
-  .secret-panel{
-    max-width:900px; margin:2.4em auto 0; background:#fff; border:1.5px solid var(--lavender);
-    border-radius:12px; padding:1.4em 1.6em;
-  }
-  .secret-panel h3{
-    text-align:center; color:var(--purple-deep); font-size:clamp(13px,1.8vw,17px);
-    letter-spacing:.1em; text-transform:uppercase; margin:0 0 .8em 0;
-  }
-  .secret-line{
-    font-size:clamp(13px,1.9vw,17px); color:var(--ink); line-height:1.9; text-align:center;
-  }
-  .secret-line .blank{ color:#c3b8d1; }
-  .secret-line .filled{ color:var(--purple-deep); font-weight:700; }
-
-  .reveal-banner{
-    display:none; text-align:center; margin-top:1.6em;
-  }
-  .reveal-banner.show{ display:block; }
-  .reveal-banner .headline{
-    font-size:clamp(16px,2.4vw,22px); font-weight:800; color:var(--success); margin-bottom:.6em;
-    letter-spacing:.06em; text-transform:uppercase;
-  }
 
   /* ================= COMPUTER SCREEN ================= */
   #screen-computer{
@@ -308,7 +332,7 @@
 
 <!-- ============ SCREEN 1: MISSION INTRO ============ -->
 <div class="screen active" id="screen-intro">
-  <div class="eyebrow">Room 3 | Use Tech</div>
+  <div class="eyebrow">Room 3</div>
   <h1>Mutation Detection Challenge</h1>
   <p>Match each colored slide to the sample with the same number. Layer the slides to reveal the secret message.</p>
   <button class="btn-primary" id="begin-btn">Begin Analysis</button>
@@ -317,7 +341,7 @@
 <!-- ============ SCREEN 2: SAMPLE WALL ============ -->
 <div class="screen" id="screen-wall">
   <div class="wall-header">
-    <div class="eyebrow">Room 3 | Use Tech</div>
+    <div class="eyebrow">Room 3</div>
     <h2>Sample Wall</h2>
     <p class="instruction">Match each colored slide to the sample with the same number.</p>
     <div class="progress-bar-wrap">
@@ -327,21 +351,24 @@
     </div>
   </div>
 
-  <div class="wall-grid" id="wall-grid"></div>
+  <div class="wall-main">
+    <div class="wall-grid-wrap">
+      <div class="wall-grid" id="wall-grid"></div>
+    </div>
 
-  <div class="tray-section">
-    <h3>Historical Samples</h3>
-    <p class="tray-instruction">Tap a slide, then tap its matching sample &mdash; or drag it into place.</p>
-    <div class="tray-grid" id="tray-grid"></div>
+    <div class="secret-panel">
+      <h3>Secret Message</h3>
+      <div id="secret-message-lines"></div>
+      <div class="reveal-banner" id="reveal-banner">
+        <div class="headline">Secret Message Revealed</div>
+        <button class="btn-primary" id="go-to-computer-btn">Go to Computer</button>
+      </div>
+    </div>
   </div>
 
-  <div class="secret-panel">
-    <h3>Secret Message</h3>
-    <div id="secret-message-lines"></div>
-    <div class="reveal-banner" id="reveal-banner">
-      <div class="headline">Secret Message Revealed</div>
-      <button class="btn-primary" id="go-to-computer-btn">Go to Computer</button>
-    </div>
+  <div class="tray-section">
+    <h3>Historical<br>Samples</h3>
+    <div class="tray-grid" id="tray-grid"></div>
   </div>
 </div>
 
