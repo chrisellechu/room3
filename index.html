@@ -118,8 +118,12 @@
   .wall-cell .sample-num{
     font-weight:800; font-size:clamp(12px,1.6vw,16px); color:var(--ink); letter-spacing:.02em; flex-shrink:0;
   }
+  .wall-img-wrap{
+    position:relative; flex:1; min-height:0; width:100%;
+    display:flex; align-items:center; justify-content:center;
+  }
   .wall-cell .sample-img{
-    width:100%; flex:1; min-height:0; object-fit:contain;
+    width:88%; height:88%; object-fit:contain;
   }
   .wall-cell .fragment{
     font-size:clamp(10px,1.3vw,13px); color:#8a7a9a; line-height:1.3;
@@ -131,8 +135,8 @@
   .wall-cell.selectable-target{ box-shadow:0 0 0 3px rgba(107,63,160,0.25); }
 
   .overlay-slide{
-    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    padding:.35em .5em; opacity:0; pointer-events:none;
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
   }
   .overlay-slide.show{
     opacity:1; animation:layerIn .5s ease;
@@ -142,7 +146,7 @@
     position:absolute; inset:0; background:var(--purple-mid); mix-blend-mode:multiply; opacity:.5;
   }
   .overlay-slide img{
-    position:relative; width:100%; flex:1; min-height:0; object-fit:contain; z-index:1;
+    position:relative; width:88%; height:88%; object-fit:contain; z-index:1;
     filter:saturate(1.3);
   }
   .success-glow{
@@ -191,7 +195,7 @@
   }
   .reveal-banner .btn-primary{ padding:.5em 1em; font-size:clamp(10px,1.3vw,13px); }
 
-  /* ---- historical slide tray: fixed-height bottom strip ---- */
+  /* ---- historical slide tray: all 12 fit in one row, no scrolling ---- */
   .tray-section{
     flex:0 0 auto;
     display:flex; align-items:center; gap:1vw;
@@ -202,17 +206,15 @@
     line-height:1.2;
   }
   .tray-grid{
-    display:flex; gap:.8vw; overflow-x:auto; -webkit-overflow-scrolling:touch;
-    padding:.3vh 2px; flex:1; min-width:0;
+    display:grid; grid-template-columns:repeat(12, 1fr); gap:.6vw;
+    flex:1; min-width:0;
   }
-  .tray-grid::-webkit-scrollbar{ height:5px; }
-  .tray-grid::-webkit-scrollbar-thumb{ background:var(--purple-mid); border-radius:3px; }
 
   .slide-tile{
-    background:var(--purple-deep); border:2px solid var(--purple-mid); border-radius:9px;
-    padding:.35em .4em; text-align:center; position:relative; cursor:grab;
+    background:var(--purple-deep); border:2px solid var(--purple-mid); border-radius:8px;
+    padding:.3em .3em; text-align:center; position:relative; cursor:grab;
     transition:transform .15s ease, box-shadow .2s ease;
-    flex:0 0 auto; width:16vh; aspect-ratio:1/1;
+    width:100%; aspect-ratio:1/1;
     display:flex; flex-direction:column;
   }
   .slide-tile:active{ cursor:grabbing; }
@@ -226,7 +228,8 @@
     position:absolute; inset:0; background:var(--purple-mid); mix-blend-mode:multiply; opacity:.55; border-radius:4px;
   }
   .slide-tile .slide-num{
-    color:var(--lavender-pale); font-size:clamp(13px,1.9vw,17px); font-weight:800; margin-bottom:.25em; flex-shrink:0;
+    color:var(--lavender-pale); font-size:clamp(9px,1.3vw,12.5px); font-weight:800; margin-bottom:.2em; flex-shrink:0;
+    line-height:1.15;
   }
   .slide-tile.selected{ box-shadow:0 0 0 3px #fff, 0 0 16px 4px rgba(255,255,255,0.5); transform:translateY(-2px); }
   .slide-tile.matched-out{ opacity:.25; pointer-events:none; filter:grayscale(1); }
@@ -306,20 +309,15 @@
     display:flex; flex-direction:column; align-items:center;
     gap:1.1vh; text-align:center;
   }
-  .final-intro{ color:#fff; font-size:clamp(14px,2.5vh,20px); font-weight:700; line-height:1.4; }
-  .final-virus-tag{ color:var(--lavender-pale); letter-spacing:.14em; text-transform:uppercase; font-size:clamp(10px,1.6vh,13px); font-weight:700; }
-  .final-virus-name{
-    font-size:clamp(26px,5.5vh,44px); font-weight:900; color:#fff; margin:0;
-    text-shadow:0 0 18px rgba(255,255,255,0.5); line-height:1.1;
-  }
+  .final-intro{ color:#fff; font-size:clamp(15px,2.8vh,22px); font-weight:700; line-height:1.4; }
   .final-sample-img-wrap{
-    width:15vh; aspect-ratio:1/1; border-radius:50%;
+    width:19vh; aspect-ratio:1/1; border-radius:50%;
     background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center;
     box-shadow:0 0 0 5px rgba(255,255,255,0.25), 0 0 32px 10px rgba(255,255,255,0.35);
     flex-shrink:0;
   }
   .final-sample-img-wrap img{ width:70%; height:70%; object-fit:contain; }
-  .final-sample-label{ color:#fff; font-size:clamp(14px,2.3vh,19px); font-weight:800; }
+  .final-sample-label{ color:#fff; font-size:clamp(16px,2.7vh,22px); font-weight:800; }
   .final-panel{
     background:#fff; border-radius:14px; padding:1.4vh 2.4vw; color:var(--ink);
     width:100%;
@@ -414,8 +412,6 @@
 <div class="screen" id="screen-final">
   <div class="final-inner">
     <div class="final-intro">AI searched through all the samples and found the one with the abnormality!</div>
-    <div class="final-virus-tag">New Poxviridae Virus Discovered</div>
-    <div class="final-virus-name">Fauxpox</div>
     <div class="final-sample-img-wrap"><img id="final-sample-img" src="" alt="Sample 1849 microorganism"></div>
     <div class="final-sample-label">Sample #1849</div>
     <div class="final-panel">
@@ -509,12 +505,14 @@ function buildWall(){
     }
     cell.innerHTML = `
       <div class="sample-num">SAMPLE ${num}</div>
-      <img class="sample-img" src="${SAMPLE_IMAGES[num]}" alt="Sample ${num} microorganism" draggable="false">
-      <div class="fragment" id="fragment-${num}">${hasSlide ? '&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;' : 'Archived record'}</div>
-      <div class="overlay-slide" id="overlay-${num}">
-        <div class="tint"></div>
-        <img src="${SAMPLE_IMAGES[num]}" alt="">
+      <div class="wall-img-wrap">
+        <img class="sample-img" src="${SAMPLE_IMAGES[num]}" alt="Sample ${num} microorganism" draggable="false">
+        <div class="overlay-slide" id="overlay-${num}">
+          <div class="tint"></div>
+          <img src="${SAMPLE_IMAGES[num]}" alt="">
+        </div>
       </div>
+      <div class="fragment" id="fragment-${num}">${hasSlide ? '&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;' : 'Archived record'}</div>
       <div class="success-glow" id="glow-${num}"></div>
     `;
     if(hasSlide){
